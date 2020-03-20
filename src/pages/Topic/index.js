@@ -6,25 +6,20 @@ import Navbar from '../../components/navbar'
 
 
 const Topic = () => {
-    const {
-        topics = false,
-        setTopics,
-        details,
-        setDetails
-    } = useContext(TopicContext);
+    const { topics, current, setCurrent, currentId, setCurrentId } = useContext(TopicContext);
 
     const { topicId } = useParams();
 
+
     const _fetchTopic = () => {
-			const res = topics[2+1];
-			setDetails(res);
+			setCurrentId(topicId);
 	};
 
 	useEffect(() => {
 		_fetchTopic();
 	}, []);
 
-    if (!details || details === []) {
+    if (!current || current === []) {
         return (
             <div>rien</div>
         )
@@ -37,7 +32,7 @@ const Topic = () => {
                 <div className="row">
                     <div className="col-6 d-flex">
                         <Waiting />
-                        <h5>{details.title}</h5>
+                        <h5>{current.title}</h5>
                     </div>
                     <div className="col-2">
                         <small>Last vote: 3 days ago</small>
@@ -48,7 +43,7 @@ const Topic = () => {
                     <div className="col-2"></div>
                 </div>
                 <p></p>
-                <p>{details.id}</p>
+                <p>{current.id}</p>
             </div>
         </div>
     );
